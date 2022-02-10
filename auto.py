@@ -83,12 +83,37 @@ def put_attendance(sub_id,sub_code,class_path):
 
 		browser.quit()
 
-	time.sleep(10)
-	browser = webdriver.Chrome()
-	browser.get("https://eduserver.nitc.ac.in/")
-	login(browser)
-	browser.get(class_path)
-	browser.quit()
+	# time.sleep(10)
+	# browser = webdriver.Chrome()
+	# browser.get("https://eduserver.nitc.ac.in/")
+	# login(browser)
+	# browser.get(class_path)
+	# browser.quit()
+
+	# opening class link
+	opened_class = False
+	class_attempts = 0
+
+	# if subject is gis, delay class opening by 20 min, else 10 min
+	if sub_id=='gis':
+		time.sleep(1200)
+	else:
+		time.sleep(600)
+
+	while(attendance_marked==True and opened_class==False and class_attempts<max_attempts):
+
+		browser = webdriver.Chrome()
+		browser.get("https://eduserver.nitc.ac.in/")
+
+		try:
+			login(browser)
+			browser.get(class_path)
+			opened_class = True
+		except:
+			time.sleep(60)
+			class_attempts+=1
+
+		browser.quit()
 
 	if(attempts>=max_attempts):
 		print(f"link unavailable after {max_attempts} attempts.. skipping")
