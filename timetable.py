@@ -1,7 +1,4 @@
 
-## this code is written and managed by abhinav -p (@_ai_factory) 
-## abhinavhariharan2001@gmail.com
-
 days=["monday","tuesday","wednesday","thursday","friday"]
 
 #active classes are those classes for which you have to put attendance
