@@ -100,13 +100,12 @@ def put_attendance(sub_id,sub_code,class_path):
 	else:
 		time.sleep(600)
 
+	# get crx file using https://chrome.google.com/webstore/detail/get-crx/dijpllakibenlejkbajahncialkbdkjc and get crx of https://chrome.google.com/webstore/detail/cisco-webex-extension/jlhmfgmfgeifomenelglieieghnjghma
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_extension('webex.crx')
 
 	while(opened_class==False and class_attempts<max_attempts):
 
-		# chrome_options.add_extension('C:\Users\abhiram\Downloads\Attendance-automation-main\eduserver_automation\webex.zip')
-		# browser = webdriver.Chrome(executable_path=chrome_exe, chrome_options=chrome_options)
 		browser = webdriver.Chrome(chrome_options=chrome_options)
 		browser.get("https://eduserver.nitc.ac.in/")
 
@@ -166,10 +165,6 @@ def init_day():
 		length_of_day = len(arr[day_indx])
 	else:
 		non_working_day=True
-
-	
-
-
 
 
 def event_driver():
