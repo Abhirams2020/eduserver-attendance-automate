@@ -100,15 +100,21 @@ def put_attendance(sub_id,sub_code,class_path):
 	else:
 		time.sleep(600)
 
-	while(attendance_marked==True and opened_class==False and class_attempts<max_attempts):
+	chrome_options = webdriver.ChromeOptions()
+	chrome_options.add_extension('webex.crx')
 
-		browser = webdriver.Chrome()
+	while(opened_class==False and class_attempts<max_attempts):
+
+		# chrome_options.add_extension('C:\Users\abhiram\Downloads\Attendance-automation-main\eduserver_automation\webex.zip')
+		# browser = webdriver.Chrome(executable_path=chrome_exe, chrome_options=chrome_options)
+		browser = webdriver.Chrome(chrome_options=chrome_options)
 		browser.get("https://eduserver.nitc.ac.in/")
 
 		try:
 			login(browser)
-			browser.get(class_path)
+			browser.get('https://eduserver.nitc.ac.in/mod/webexactivity/view.php?id=90659&action=joinmeeting')
 			opened_class = True
+			time.sleep(120)
 		except:
 			time.sleep(60)
 			class_attempts+=1
