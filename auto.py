@@ -102,7 +102,7 @@ def put_attendance(sub_id,sub_code,class_path):
 
 	# get crx file using https://chrome.google.com/webstore/detail/get-crx/dijpllakibenlejkbajahncialkbdkjc and get crx of https://chrome.google.com/webstore/detail/cisco-webex-extension/jlhmfgmfgeifomenelglieieghnjghma
 	chrome_options = webdriver.ChromeOptions()
-	chrome_options.add_extension('webex.crx')
+	chrome_options.add_extension('C:/Users/abhiram/Documents/eduserver-attendance-automate/webex.crx')
 
 	while(opened_class==False and class_attempts<max_attempts):
 
@@ -111,7 +111,7 @@ def put_attendance(sub_id,sub_code,class_path):
 
 		try:
 			login(browser)
-			browser.get('https://eduserver.nitc.ac.in/mod/webexactivity/view.php?id=90659&action=joinmeeting')
+			browser.get(class_path)
 			opened_class = True
 			time.sleep(120)
 		except:
