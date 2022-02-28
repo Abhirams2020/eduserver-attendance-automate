@@ -28,11 +28,13 @@ prev_slot="none"
 # this can happen if the link is unavailable or the slot is changed.
 # each attempt is done after a 10second delay inorder to wait for the link
 
-max_attempts=1      #maximum number of attempts till completion
+max_attempts=10      #maximum number of attempts till completion
 
 rotate_animation =0
 rot_anim='|'
 
+
+#FUNCTION TO LOGIN TO EDUSERVER USING USERNAME AND PASSWORD GIVEN ABOVE
 def login(browser):
 	username = browser.find_element_by_id("username")
 	password = browser.find_element_by_id("password")
@@ -40,8 +42,12 @@ def login(browser):
 	password.send_keys(login_password)
 	browser.find_element_by_xpath('/html/body/div[1]/div[2]/div/section/div[2]/div[2]/div[1]/div/div[2]/form/div[3]/button').click()
 
+
+# FUNCTION TO MARK ATTENDANCE AND OPEN CLASS
 def put_attendance(sub_id,sub_code,class_path):
 	global max_attempts,login_username,login_password
+
+	# mark attendance
 	attendance_marked=False
 	attempts=0
 	browser = webdriver.Chrome()
@@ -83,24 +89,19 @@ def put_attendance(sub_id,sub_code,class_path):
 
 		browser.quit()
 
-	# time.sleep(10)
-	# browser = webdriver.Chrome()
-	# browser.get("https://eduserver.nitc.ac.in/")
-	# login(browser)
-	# browser.get(class_path)
-	# browser.quit()
-
 	# opening class link
 	opened_class = False
 	class_attempts = 0
 
-	# if subject is gis, delay class opening by 20 min, else 10 min
-	if sub_id=='gis':
+	# if subject is gis or tfm, delay class opening by 20 min, else 10 min
+	if sub_id in ['gis','tfm']:
 		time.sleep(1200)
 	else:
 		time.sleep(600)
 
-	# get crx file using https://chrome.google.com/webstore/detail/get-crx/dijpllakibenlejkbajahncialkbdkjc and get crx of https://chrome.google.com/webstore/detail/cisco-webex-extension/jlhmfgmfgeifomenelglieieghnjghma
+	### GET .CRX FILE ###
+	# Install extension https://chrome.google.com/webstore/detail/get-crx/dijpllakibenlejkbajahncialkbdkjc 
+	# Download crx of https://chrome.google.com/webstore/detail/cisco-webex-extension/jlhmfgmfgeifomenelglieieghnjghma
 	chrome_options = webdriver.ChromeOptions()
 	chrome_options.add_extension('C:/Users/abhiram/Documents/eduserver-attendance-automate/webex.crx')
 
@@ -124,6 +125,7 @@ def put_attendance(sub_id,sub_code,class_path):
 		print(f"link unavailable after {max_attempts} attempts.. skipping")
 		attendance_marked=True
 
+
 def rotate_animation_init():
 
 	global rotate_animation,rot_anim
@@ -140,6 +142,7 @@ def rotate_animation_init():
 		rot_anim='|'
 		rotate_animation=0
 	rotate_animation+=3
+
 
 def init_day():
 	global curr_time,day_indx,length_of_day,non_working_day,rot_anim
@@ -174,7 +177,6 @@ def event_driver():
 
 		if(non_working_day): #check if the day is a working day or not
 			continue
-
 		
 		for i in range(1,length_of_day):
 
@@ -205,10 +207,9 @@ def event_driver():
 				
 	
 	
-# // main
+# MAIN FUNCTION
 
 event_driver()
-
 
 ##   sleep peacefully
 ## :) :) :) *-* :( :( :(
