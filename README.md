@@ -1,6 +1,10 @@
 # Eduserver-attendance-automate
 
-A python script for attendance automation in the eduserver for nitc
+A python script for attendance automation in the Eduserver for NITC.
+
+By using python for web scraping, the program marks the attendance on Eduserver and also opens the corresponding class at the right time.
+
+Users can input username and password in the auto.py file and modify the timetable.py file to use the program.
 
 External libraries used
 -----------------------
@@ -56,4 +60,4 @@ Forked from https://github.com/AI-Factor-y/Attendance-automation. It is still un
 
 Licensed under [![license](https://img.shields.io/github/license/DAVFoundation/captain-n3m0.svg?style=flat-square)](https://github.com/AI-Factor-y/Attendance-automation/blob/main/LICENSE)
 
-Any contribution to this code will be helpfull please feel free to commit
+Any contribution to this code will be helpful. Please feel free to commit.
